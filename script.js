@@ -74,43 +74,73 @@ document.addEventListener("DOMContentLoaded", () => {
 
 async function loadSolution(button, filePath) {
 
+    // Find nearest solution container
     const container =
-        button.parentElement.querySelector(".solution-container");
+        button.closest(".accordion-body")
+              .querySelector(".solution-container");
 
     if (!container) return;
 
-    // Toggle
+
+    // Toggle visibility
 
     if (container.style.display === "block") {
 
         container.style.display = "none";
 
+        button.innerText = "Load Solution";
+
         return;
     }
 
+
     try {
+
+        // Fetch solution file
 
         const response = await fetch(filePath);
 
         const code = await response.text();
 
+
+        // Display solution
+
         container.innerHTML = `
 <pre><code>${escapeHtml(code)}</code></pre>
+`;
+
+
+        container.style.display = "block";
+
+        button.innerText = "Hide Solution";
+
+    }
+
+    catch(error) {
+
+        console.error(error);
+
+        container.innerHTML = `
+<div class="alert alert-danger">
+    Failed to load solution file.
+</div>
 `;
 
         container.style.display = "block";
 
     }
 
-    catch(error) {
+}
 
-        container.innerHTML = `
-<p class="text-danger">
-    Failed to load solution.
-</p>
-`;
 
-    }
+// Escape HTML safely
+
+function escapeHtml(text) {
+
+    return text
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;");
 
 }
 
