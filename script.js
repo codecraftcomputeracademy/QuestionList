@@ -1,82 +1,124 @@
 // ==========================
-// LOAD NAVBAR
+// LOAD COMPONENT
 // ==========================
 
-async function loadNavbar() {
+async function loadComponent(id, file) {
 
-    const navbar = document.getElementById("navbar");
+    const element = document.getElementById(id);
 
-    if (!navbar) return;
+    if (!element) return;
 
-    let path = "/QuestionList/components/navbar.html";
+    try {
 
-    const response = await fetch(path);
+        const response = await fetch(file);
 
-    const html = await response.text();
+        const html = await response.text();
 
-    navbar.innerHTML = html;
+        element.innerHTML = html;
+
+    }
+
+    catch(error) {
+
+        console.error("Component load error:", error);
+
+    }
 
 }
 
 
 // ==========================
-// LOAD FOOTER
+// LOAD NAVBAR + FOOTER
 // ==========================
 
-async function loadFooter() {
+document.addEventListener("DOMContentLoaded", () => {
 
-    const footer = document.getElementById("footer");
+    // Detect depth automatically
 
-    if (!footer) return;
+    let depth = "";
 
-    let path = "/QuestionList/components/footer.html";
+    const path = window.location.pathname;
 
-    const response = await fetch(path);
+    if (path.includes("/Python/Beginner/")) {
 
-    const html = await response.text();
+        depth = "../../";
 
-    footer.innerHTML = html;
+    }
 
-}
+    else if (
+        path.includes("/Python/")
+        || path.includes("/SQL/")
+        || path.includes("/Interview-Questions/")
+    ) {
+
+        depth = "../";
+
+    }
+
+    loadComponent(
+        "navbar",
+        depth + "components/navbar.html"
+    );
+
+    loadComponent(
+        "footer",
+        depth + "components/footer.html"
+    );
+
+});
 
 
-// Initialize common components
-loadNavbar();
-loadFooter();
-
-// Function to load solution file dynamically
+// ==========================
+// LOAD SOLUTION FILE
+// ==========================
 
 async function loadSolution(button, filePath) {
 
-    // Find nearest solution container
-    const container = button.nextElementSibling;
+    const container =
+        button.parentElement.querySelector(".solution-container");
 
-    // Toggle solution visibility
+    if (!container) return;
+
+    // Toggle
+
     if (container.style.display === "block") {
 
         container.style.display = "none";
-        button.innerText = "View Solution";
+
         return;
     }
 
-    // Fetch solution file
-    const response = await fetch(filePath);
+    try {
 
-    // Read solution text
-    const code = await response.text();
+        const response = await fetch(filePath);
 
-    // Display solution
-    container.innerHTML = `
+        const code = await response.text();
+
+        container.innerHTML = `
 <pre><code>${escapeHtml(code)}</code></pre>
 `;
 
-    container.style.display = "block";
+        container.style.display = "block";
 
-    button.innerText = "Hide Solution";
+    }
+
+    catch(error) {
+
+        container.innerHTML = `
+<p class="text-danger">
+    Failed to load solution.
+</p>
+`;
+
+    }
+
 }
 
 
-// Escape HTML characters
+// ==========================
+// ESCAPE HTML
+// ==========================
+
 function escapeHtml(text) {
 
     return text
