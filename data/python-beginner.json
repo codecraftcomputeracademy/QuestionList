@@ -1,0 +1,29 @@
+[
+    {
+        "title": "Print Your Name",
+        "description": "Write a Python program to print your name.",
+        "difficulty": "Easy",
+        "solution": "./solutions/print-name.py"
+    },
+
+    {
+        "title": "Add Two Numbers",
+        "description": "Write a Python program to add two numbers.",
+        "difficulty": "Easy",
+        "solution": "./solutions/add-two-numbers.py"
+    },
+
+    {
+        "title": "Even or Odd",
+        "description": "Write a Python program to check whether a number is even or odd.",
+        "difficulty": "Medium",
+        "solution": "./solutions/even-or-odd.py"
+    },
+
+    {
+        "title": "Factorial Program",
+        "description": "Write a Python program to calculate factorial of a number.",
+        "difficulty": "Hard",
+        "solution": "./solutions/factorial.py"
+    }
+]
