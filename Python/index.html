@@ -7,87 +7,205 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Python Practice Questions</title>
-
+    <link    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"  rel="stylesheet">
     <link rel="stylesheet" href="../style.css">
 
 </head>
 
 <body>
 
-    <header>
+    <!-- Navbar -->
 
-        <h1>🐍 Python Practice Portal</h1>
+    <div id="navbar"></div>
 
-        <p>
-            Practice beginner to advanced Python questions with solutions.
-        </p>
 
-        <a href="https://github.com/codecraftcomputeracademy/QuestionList">
-            View GitHub Repository
-        </a>
+    <!-- Hero Section -->
+
+    <header class="bg-dark text-white text-center py-5">
+
+        <div class="container">
+
+            <h1 class="display-4 fw-bold">
+                🐍 Python Practice Portal
+            </h1>
+
+            <p class="lead mt-3">
+
+                Practice beginner to advanced Python questions with solutions.
+
+            </p>
+
+            <a
+                href="https://github.com/codecraftcomputeracademy/QuestionList"
+                class="btn btn-primary btn-lg mt-3">
+
+                View GitHub Repository
+
+            </a>
+
+        </div>
 
     </header>
 
-    <section class="cards">
 
-        <div class="card">
+    <!-- Main Content -->
 
-            <h2>🟢 Beginner</h2>
+    <section class="container py-5">
 
-            <p>
-                Variables, loops, functions, strings, lists and beginner programs.
-            </p>
+        <div class="row g-4">
 
-            <!-- <a href="./Beginner/python-beginner-questions.md"> -->
-            <a href="./Beginner/index.html"></a>
-                Start Practice
-            </a>
 
-        </div>
+            <!-- Beginner Card -->
 
-        <div class="card">
+            <div class="col-md-6 col-lg-3">
 
-            <h2>🟡 Intermediate</h2>
+                <div class="card shadow-sm h-100">
 
-            <p>
-                File handling, exceptions, modules and recursion practice.
-            </p>
+                    <div class="card-body">
 
-            <a href="./Intermediate/">
-                Start Practice
-            </a>
+                        <h2 class="card-title">
+                            🟢 Beginner
+                        </h2>
 
-        </div>
+                        <p class="card-text">
 
-        <div class="card">
+                            Variables, loops, functions, strings, lists and beginner programs.
 
-            <h2>🔴 Advanced</h2>
+                        </p>
 
-            <p>
-                OOP, decorators, generators, APIs and advanced concepts.
-            </p>
+                        <a
+                            href="./Beginner/index.html"
+                            class="btn btn-primary">
 
-            <a href="./Advanced/">
-                Start Practice
-            </a>
+                            Start Practice
 
-        </div>
+                        </a>
 
-        <div class="card">
+                    </div>
 
-            <h2>💻 Mini Projects</h2>
+                </div>
 
-            <p>
-                Real-world Python projects for practice and portfolio building.
-            </p>
+            </div>
 
-            <a href="./Projects/">
-                View Projects
-            </a>
+
+            <!-- Intermediate Card -->
+
+            <div class="col-md-6 col-lg-3">
+
+                <div class="card shadow-sm h-100">
+
+                    <div class="card-body">
+
+                        <h2 class="card-title">
+                            🟡 Intermediate
+                        </h2>
+
+                        <p class="card-text">
+
+                            File handling, exceptions, modules and recursion practice.
+
+                        </p>
+
+                        <a
+                            href="./Intermediate/"
+                            class="btn btn-primary">
+
+                            Start Practice
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Advanced Card -->
+
+            <div class="col-md-6 col-lg-3">
+
+                <div class="card shadow-sm h-100">
+
+                    <div class="card-body">
+
+                        <h2 class="card-title">
+                            🔴 Advanced
+                        </h2>
+
+                        <p class="card-text">
+
+                            OOP, decorators, generators, APIs and advanced concepts.
+
+                        </p>
+
+                        <a
+                            href="./Advanced/"
+                            class="btn btn-primary">
+
+                            Start Practice
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Projects Card -->
+
+            <div class="col-md-6 col-lg-3">
+
+                <div class="card shadow-sm h-100">
+
+                    <div class="card-body">
+
+                        <h2 class="card-title">
+                            💻 Mini Projects
+                        </h2>
+
+                        <p class="card-text">
+
+                            Real-world Python projects for practice and portfolio building.
+
+                        </p>
+
+                        <a
+                            href="./Projects/"
+                            class="btn btn-primary">
+
+                            View Projects
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
 
         </div>
 
     </section>
+
+
+    <!-- Footer -->
+
+    <div id="footer"></div>
+
+
+    <!-- Bootstrap JS -->
+
+    <script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js">
+    </script>
+
+
+    <!-- Global Script -->
+
+    <script src="../script.js"></script>
 
 </body>
 

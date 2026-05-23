@@ -7,72 +7,173 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Codecraft Practice Portal</title>
-
+    <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 
 </head>
 
 <body>
 
-    <header>
+    <!-- Navbar -->
 
-        <h1>Codecraft Practice Portal 🚀</h1>
+    <div id="navbar"></div>
 
-        <p>
-            Practice Python, SQL, Interview Questions and Mini Projects
-        </p>
 
-        <a href="https://github.com/codecraftcomputeracademy/QuestionList">
-            View GitHub Repository
-        </a>
+    <!-- Hero Section -->
+
+    <header class="bg-dark text-white text-center py-5">
+
+        <div class="container">
+
+            <h1 class="display-4 fw-bold">
+                Codecraft Practice Portal 🚀
+            </h1>
+
+            <p class="lead mt-3">
+
+                Practice Python, SQL, Interview Questions and Mini Projects
+
+            </p>
+
+            <a
+                href="https://github.com/codecraftcomputeracademy/QuestionList"
+                class="btn btn-primary btn-lg mt-3">
+
+                View GitHub Repository
+
+            </a>
+
+        </div>
 
     </header>
 
-    <section class="cards">
 
-        <div class="card">
+    <!-- Main Cards Section -->
 
-            <h2>🐍 Python Questions</h2>
+    <section class="container py-5">
 
-            <p>
-                Beginner to Advanced Python practice questions with solutions.
-            </p>
+        <div class="row g-4">
 
-            <a href="./Python/index.html">
-                Start Practice
-            </a>
 
-        </div>
+            <!-- Python Card -->
 
-        <div class="card">
+            <div class="col-md-6 col-lg-4">
 
-            <h2>🗄 SQL Questions</h2>
+                <div class="card shadow-sm h-100">
 
-            <p>
-                SQL queries, joins, subqueries and interview preparation.
-            </p>
+                    <div class="card-body">
 
-            <a href="./SQL/">
-                Start Practice
-            </a>
+                        <h2 class="card-title">
+                            🐍 Python Questions
+                        </h2>
 
-        </div>
+                        <p class="card-text">
 
-        <div class="card">
+                            Beginner to Advanced Python practice questions with solutions.
 
-            <h2>💼 Interview Questions</h2>
+                        </p>
 
-            <p>
-                Python, SQL, HR and Full Stack interview preparation.
-            </p>
+                        <a
+                            href="./Python/index.html"
+                            class="btn btn-primary">
 
-            <a href="./Interview-Questions/">
-                Start Practice
-            </a>
+                            Start Practice
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- SQL Card -->
+
+            <div class="col-md-6 col-lg-4">
+
+                <div class="card shadow-sm h-100">
+
+                    <div class="card-body">
+
+                        <h2 class="card-title">
+                            🗄 SQL Questions
+                        </h2>
+
+                        <p class="card-text">
+
+                            SQL queries, joins, subqueries and interview preparation.
+
+                        </p>
+
+                        <a
+                            href="./SQL/"
+                            class="btn btn-primary">
+
+                            Start Practice
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Interview Questions Card -->
+
+            <div class="col-md-6 col-lg-4">
+
+                <div class="card shadow-sm h-100">
+
+                    <div class="card-body">
+
+                        <h2 class="card-title">
+                            💼 Interview Questions
+                        </h2>
+
+                        <p class="card-text">
+
+                            Python, SQL, HR and Full Stack interview preparation.
+
+                        </p>
+
+                        <a
+                            href="./Interview-Questions/"
+                            class="btn btn-primary">
+
+                            Start Practice
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
 
         </div>
 
     </section>
+
+
+    <!-- Footer -->
+
+    <div id="footer"></div>
+
+
+    <!-- Bootstrap JS -->
+
+    <script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js">
+    </script>
+
+
+    <!-- Global Script -->
+
+    <script src="script.js"></script>
 
 </body>
 
