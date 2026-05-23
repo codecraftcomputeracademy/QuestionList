@@ -1,5 +1,6 @@
 [
     {
+        "category": "Variables",
         "title": "Print Your Name",
         "description": "Write a Python program to print your name.",
         "difficulty": "Easy",
@@ -7,6 +8,7 @@
     },
 
     {
+        "category": "Variables",
         "title": "Add Two Numbers",
         "description": "Write a Python program to add two numbers.",
         "difficulty": "Easy",
@@ -14,16 +16,26 @@
     },
 
     {
-        "title": "Even or Odd",
-        "description": "Write a Python program to check whether a number is even or odd.",
+        "category": "Loops",
+        "title": "Factorial Program",
+        "description": "Write a Python program to calculate factorial of a number.",
         "difficulty": "Medium",
-        "solution": "./solutions/even-or-odd.py"
+        "solution": "./solutions/factorial.py"
     },
 
     {
-        "title": "Factorial Program",
-        "description": "Write a Python program to calculate factorial of a number.",
-        "difficulty": "Hard",
-        "solution": "./solutions/factorial.py"
+        "category": "Loops",
+        "title": "Fibonacci Series",
+        "description": "Write a Python program to print Fibonacci series.",
+        "difficulty": "Medium",
+        "solution": "./solutions/fibonacci.py"
+    },
+
+    {
+        "category": "Functions",
+        "title": "Even or Odd",
+        "description": "Write a Python program to check whether a number is even or odd.",
+        "difficulty": "Easy",
+        "solution": "./solutions/even-or-odd.py"
     }
 ]

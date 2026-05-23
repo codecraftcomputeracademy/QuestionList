@@ -1,8 +1,8 @@
 // ==========================
-// LOAD COMPONENT
+// LOAD COMPONENTS
 // ==========================
 
-async function loadComponent(id, file) {
+async function loadComponent(id, filePath) {
 
     const element = document.getElementById(id);
 
@@ -10,7 +10,7 @@ async function loadComponent(id, file) {
 
     try {
 
-        const response = await fetch(file);
+        const response = await fetch(filePath);
 
         const html = await response.text();
 
@@ -20,9 +20,44 @@ async function loadComponent(id, file) {
 
     catch(error) {
 
-        console.error("Component load error:", error);
+        console.error(`Failed to load ${filePath}`, error);
 
     }
+
+}
+
+
+// ==========================
+// DETECT BASE PATH
+// ==========================
+
+function getBasePath() {
+
+    const path = window.location.pathname;
+
+    // Beginner pages
+
+    if (path.includes("/Python/Beginner/")) {
+
+        return "../../";
+
+    }
+
+    // Python / SQL / Interview pages
+
+    if (
+        path.includes("/Python/")
+        || path.includes("/SQL/")
+        || path.includes("/Interview-Questions/")
+    ) {
+
+        return "../";
+
+    }
+
+    // Root homepage
+
+    return "";
 
 }
 
@@ -33,130 +68,29 @@ async function loadComponent(id, file) {
 
 document.addEventListener("DOMContentLoaded", () => {
 
-    // Detect depth automatically
-
-    let depth = "";
-
-    const path = window.location.pathname;
-
-    if (path.includes("/Python/Beginner/")) {
-
-        depth = "../../";
-
-    }
-
-    else if (
-        path.includes("/Python/")
-        || path.includes("/SQL/")
-        || path.includes("/Interview-Questions/")
-    ) {
-
-        depth = "../";
-
-    }
+    const base = getBasePath();
 
     loadComponent(
         "navbar",
-        depth + "components/navbar.html"
+        base + "components/navbar.html"
     );
 
     loadComponent(
         "footer",
-        depth + "components/footer.html"
+        base + "components/footer.html"
     );
+
+    loadQuestions();
 
 });
 
 
 // ==========================
-// LOAD SOLUTION FILE
+// GLOBAL QUESTION STORAGE
 // ==========================
 
-async function loadSolution(button, filePath) {
+let allQuestions = [];
 
-    // Find nearest solution container
-    const container =
-        button.closest(".accordion-body")
-              .querySelector(".solution-container");
-
-    if (!container) return;
-
-
-    // Toggle visibility
-
-    if (container.style.display === "block") {
-
-        container.style.display = "none";
-
-        button.innerText = "Load Solution";
-
-        return;
-    }
-
-
-    try {
-
-        // Fetch solution file
-
-        const response = await fetch(filePath);
-
-        const code = await response.text();
-
-
-        // Display solution
-
-        container.innerHTML = `
-<pre><code>${escapeHtml(code)}</code></pre>
-`;
-
-
-        container.style.display = "block";
-
-        button.innerText = "Hide Solution";
-
-    }
-
-    catch(error) {
-
-        console.error(error);
-
-        container.innerHTML = `
-<div class="alert alert-danger">
-    Failed to load solution file.
-</div>
-`;
-
-        container.style.display = "block";
-
-    }
-
-}
-
-
-// Escape HTML safely
-
-function escapeHtml(text) {
-
-    return text
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;");
-
-}
-
-
-// ==========================
-// ESCAPE HTML
-// ==========================
-
-function escapeHtml(text) {
-
-    return text
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;");
-
-}
 
 // ==========================
 // LOAD QUESTIONS
@@ -167,28 +101,87 @@ async function loadQuestions() {
     const container =
         document.getElementById("questions-container");
 
+    // Only run on question pages
+
     if (!container) return;
 
 
     try {
 
-        // Load JSON
-
         const response = await fetch(
             "../../data/python-beginner.json"
         );
 
-        const questions = await response.json();
+        allQuestions = await response.json();
 
 
-        // Generate HTML
+        // Get category from URL
 
-        questions.forEach((question, index) => {
+        const params =
+            new URLSearchParams(window.location.search);
 
-            const difficultyBadge =
-                getDifficultyBadge(question.difficulty);
+        const category =
+            params.get("category");
 
-            container.innerHTML += `
+
+        // Apply filtering
+
+        if (category) {
+
+            const filtered =
+                allQuestions.filter(
+                    q => q.category === category
+                );
+
+            renderQuestions(filtered);
+
+            updatePageTitle(category);
+
+        }
+
+        else {
+
+            renderQuestions(allQuestions);
+
+        }
+
+
+        // Setup dropdown filtering
+
+        setupCategoryFilter();
+
+    }
+
+    catch(error) {
+
+        console.error("Question loading error:", error);
+
+    }
+
+}
+
+
+// ==========================
+// RENDER QUESTIONS
+// ==========================
+
+function renderQuestions(questions) {
+
+    const container =
+        document.getElementById("questions-container");
+
+    if (!container) return;
+
+    container.innerHTML = "";
+
+
+    questions.forEach((question, index) => {
+
+        const difficultyBadge =
+            getDifficultyBadge(question.difficulty);
+
+
+        container.innerHTML += `
 
 <div class="card shadow-sm border-0 mb-4">
 
@@ -197,6 +190,12 @@ async function loadQuestions() {
         <div class="d-flex justify-content-between align-items-start flex-wrap">
 
             <div>
+
+                <span class="badge bg-primary mb-2">
+
+                    ${question.category}
+
+                </span>
 
                 <h2 class="h4 fw-bold">
 
@@ -267,14 +266,139 @@ async function loadQuestions() {
     </div>
 
 </div>
+
 `;
-        });
+    });
+
+}
+
+
+// ==========================
+// CATEGORY FILTER
+// ==========================
+
+function setupCategoryFilter() {
+
+    const filter =
+        document.getElementById("categoryFilter");
+
+    if (!filter) return;
+
+
+    filter.addEventListener("change", () => {
+
+        const selected = filter.value;
+
+
+        if (selected === "All") {
+
+            renderQuestions(allQuestions);
+
+            return;
+
+        }
+
+
+        const filtered =
+            allQuestions.filter(
+                q => q.category === selected
+            );
+
+        renderQuestions(filtered);
+
+    });
+
+}
+
+
+// ==========================
+// UPDATE PAGE TITLE
+// ==========================
+
+function updatePageTitle(category) {
+
+    const title =
+        document.getElementById("page-title");
+
+    const subtitle =
+        document.getElementById("page-subtitle");
+
+
+    if (title) {
+
+        title.innerText =
+            `🐍 ${category} Questions`;
+
+    }
+
+
+    if (subtitle) {
+
+        subtitle.innerText =
+            `Practice ${category.toLowerCase()} questions with solutions.`;
+
+    }
+
+}
+
+
+// ==========================
+// LOAD SOLUTION FILE
+// ==========================
+
+async function loadSolution(button, filePath) {
+
+    const container =
+        button.parentElement.querySelector(".solution-container");
+
+
+    if (!container) return;
+
+
+    // Toggle solution
+
+    if (container.style.display === "block") {
+
+        container.style.display = "none";
+
+        button.innerText = "Load Solution";
+
+        return;
+
+    }
+
+
+    try {
+
+        const response = await fetch(filePath);
+
+        const code = await response.text();
+
+
+        container.innerHTML = `
+<pre><code>${escapeHtml(code)}</code></pre>
+`;
+
+
+        container.style.display = "block";
+
+        button.innerText = "Hide Solution";
 
     }
 
     catch(error) {
 
         console.error(error);
+
+        container.innerHTML = `
+<div class="alert alert-danger">
+
+    Failed to load solution file.
+
+</div>
+`;
+
+        container.style.display = "block";
 
     }
 
@@ -296,6 +420,7 @@ function getDifficultyBadge(level) {
 `;
     }
 
+
     if (level === "Medium") {
 
         return `
@@ -305,6 +430,7 @@ function getDifficultyBadge(level) {
 `;
     }
 
+
     return `
 <span class="badge bg-danger fs-6 mt-2">
     Hard
@@ -313,6 +439,15 @@ function getDifficultyBadge(level) {
 }
 
 
-// Load questions automatically
+// ==========================
+// ESCAPE HTML
+// ==========================
 
-loadQuestions();
+function escapeHtml(text) {
+
+    return text
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;");
+
+}

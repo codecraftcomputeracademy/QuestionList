@@ -37,11 +37,17 @@
 
         <div class="container text-center">
 
-            <h1 class="display-4 fw-bold">
-                🐍 Python Beginner Practice Questions
-            </h1>
+           <h1
+    id="page-title"
+    class="display-4 fw-bold">
 
-            <p class="lead mt-3">
+    🐍 Python Beginner Practice Questions
+
+</h1>
+
+            <p
+    id="page-subtitle"
+    class="lead mt-3">
 
                 Practice beginner Python coding questions with solutions.
 
@@ -56,7 +62,33 @@
 
     <section class="container py-5">
 
-        <div id="questions-container"></div>
+        <div class="mb-4">
+
+    <select
+        id="categoryFilter"
+        class="form-select w-auto">
+
+        <option value="All">
+            All Categories
+        </option>
+
+        <option value="Variables">
+            Variables
+        </option>
+
+        <option value="Loops">
+            Loops
+        </option>
+
+        <option value="Functions">
+            Functions
+        </option>
+
+    </select>
+
+</div>
+
+<div id="questions-container"></div>
 
     </section>
 
